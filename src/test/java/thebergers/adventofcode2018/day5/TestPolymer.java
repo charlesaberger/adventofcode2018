@@ -88,5 +88,4 @@ public class TestPolymer {
 		polymer = new Polymer(polymerStr);
 		assertThat(Polymer.removeProblematicUnit(polymer)).as("Remove problematic unit").isEqualTo(4);
 	}
-
 }
