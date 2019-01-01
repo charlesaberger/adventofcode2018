@@ -18,6 +18,7 @@ public class DayFive {
 			Polymer polymer = new Polymer(polymerStr.get(0));
 			polymer.processReactions();
 			LOG.info("Remaining units = {}", polymer.getRemainingUnits());
+			LOG.info("Shortest polymer length = {}", Polymer.removeProblematicUnit(polymer));
 		} catch (IOException e) {
 			LOG.error("Error loading data", e);
 		}
