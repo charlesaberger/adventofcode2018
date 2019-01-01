@@ -46,5 +46,47 @@ public class TestPolymer {
 		assertThat(processedPolymer).as("Test reaction 1").isEqualTo("dabCBAcaDA");
 		assertThat(polymer.getRemainingUnits()).as("Remaining Units").isEqualTo(10);
 	}
+	
+	@Test
+	public void testRemoveUnitA() {
+		polymerStr = "dabAcCaCBAcCcaDA";
+		polymer = new Polymer(polymerStr);
+		assertThat(polymer.removeUnit("a")).as("Remove a").isEqualTo("dbcCCBcCcD");
+	}
+	
+	@Test
+	public void testRemoveUnitB() {
+		polymerStr = "dabAcCaCBAcCcaDA";
+		polymer = new Polymer(polymerStr);
+		assertThat(polymer.removeUnit("b")).as("Remove b").isEqualTo("daAcCaCAcCcaDA");
+	}
+	
+	@Test
+	public void testRemoveUnitC() {
+		polymerStr = "dabAcCaCBAcCcaDA";
+		polymer = new Polymer(polymerStr);
+		assertThat(polymer.removeUnit("c")).as("Remove c").isEqualTo("dabAaBAaDA");
+	}
+	
+	@Test
+	public void testRemoveUnitD() {
+		polymerStr = "dabAcCaCBAcCcaDA";
+		polymer = new Polymer(polymerStr);
+		assertThat(polymer.removeUnit("d")).as("Remove d").isEqualTo("abAcCaCBAcCcaA");
+	}
+	
+	@Test
+	public void testRemoveUnitX() {
+		polymerStr = "dabAcCaCBAcCcaDA";
+		polymer = new Polymer(polymerStr);
+		assertThat(polymer.removeUnit("x")).as("Remove x").isEqualTo(polymerStr);
+	}
+	
+	@Test
+	public void testRemoveProblematicUnit() {
+		polymerStr = "dabAcCaCBAcCcaDA";
+		polymer = new Polymer(polymerStr);
+		assertThat(Polymer.removeProblematicUnit(polymer)).as("Remove problematic unit").isEqualTo(4);
+	}
 
 }

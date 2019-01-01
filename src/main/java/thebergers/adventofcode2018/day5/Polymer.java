@@ -1,11 +1,10 @@
 package thebergers.adventofcode2018.day5;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Polymer {
-
-	private static final Logger LOG = LoggerFactory.getLogger(Polymer.class);
 	
 	private String originalPolymer;
 	
@@ -26,7 +25,6 @@ public class Polymer {
 				performReaction(reactiveIndex);
 			}
 		}
-		LOG.info("processedPolymer.length()={}, processedPolymer={}", processedPolymer.length(), processedPolymer);
 		return processedPolymer;
 	}
 
@@ -56,4 +54,28 @@ public class Polymer {
 		return processedPolymer.length();
 	}
 
+	public String removeUnit(String unitToRemove) {
+		return originalPolymer.replace(unitToRemove.toLowerCase(), "").replace(unitToRemove.toUpperCase(), "");
+	}
+
+	public static Integer removeProblematicUnit(Polymer polymer) {
+		Map<String, Integer> polymerLengths = new HashMap<>();
+		for (int i = 65; i <= 90; i++) {
+			Character unitToRemoveCh = (char)i;
+			String unitToRemoveStr = String.valueOf(unitToRemoveCh);
+			String newPolymerStr = polymer.removeUnit(unitToRemoveStr);
+			Polymer newPolymer = new Polymer(newPolymerStr);
+			newPolymer.processReactions();
+			polymerLengths.put(unitToRemoveStr, newPolymer.getRemainingUnits());
+		}
+		Integer shortestLength = Integer.MAX_VALUE;
+		Set<String> units = polymerLengths.keySet();
+		for (String unit : units) {
+			Integer unitsRemaining = polymerLengths.get(unit);
+			if (unitsRemaining < shortestLength) {
+				shortestLength = unitsRemaining;
+			}
+		}
+		return shortestLength;
+	}
 }
